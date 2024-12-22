@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atomic Loyalty - Smart Marketing Platform</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <style>
+        /* Infinite Carousel Animation */
+        .logos-carousel {
+            overflow: hidden;
+            padding: 20px 0;
+            white-space: nowrap;
+            position: relative;
+        }
+
+        .logos-carousel::before,
+        .logos-carousel::after {
+            position: absolute;
+            top: 0;
+            width: 250px;
+            height: 100%;
+            content: "";
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        .logos-carousel::before {
+            left: 0;
+            background: linear-gradient(to right, #FAFAFA, transparent);
+        }
+
+        .logos-carousel::after {
+            right: 0;
+            background: linear-gradient(to left, #FAFAFA, transparent);
+        }
+
+        .logos-slide {
+            display: inline-flex;
+            animation: slideLogos 20s linear infinite;
+            gap: 100px;
+        }
+
+        .client-logo {
+            flex: 0 0 auto;
+            padding: 20px;
+            transition: all 0.3s ease;
+            filter: grayscale(1);
+            opacity: 0.7;
+        }
+
+        .client-logo:hover {
+            filter: grayscale(0);
+            opacity: 1;
+            transform: scale(1.1);
+        }
+
+        @keyframes slideLogos {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(-100%);
+            }
+        }
+
+        .logos-carousel:hover .logos-slide {
+            animation-play-state: paused;
+        }
+
+        /* Modern hover effect for logos */
+        .client-logo {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .client-logo::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.6s ease, height 0.6s ease;
+        }
+
+        .client-logo:hover::after {
+            width: 200px;
+            height: 200px;
+            opacity: 0;
+        }
+        :root {
+            --text-primary: #1A1A1A;
+            --text-secondary: #666666;
+            --brand-blue: #00A7E1;
+            --brand-orange: #FF6B00;
+            --brand-green: #4CAF50;
+            --glass-bg: rgba(255, 255, 255, 0.7);
+        }
+
+        body {
+            background-color: #FAFAFA;
+            overflow-x: hidden;
+        }
+
+        .glass-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+
+        .gradient-blob {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.5;
+            mix-blend-mode: multiply;
+            animation: float 20s ease-in-out infinite;
+            z-index: -1;
+        }
+
+        .blob-1 {
+            background: var(--brand-blue);
+            width: 400px;
+            height: 400px;
+            top: -100px;
+            left: -100px;
+        }
+
+        .blob-2 {
+            background: var(--brand-orange);
+            width: 500px;
+            height: 500px;
+            top: 30%;
+            right: -200px;
+        }
+
+        .blob-3 {
+            background: var(--brand-green);
+            width: 300px;
+            height: 300px;
+            bottom: 10%;
+            left: 20%;
+        }
+
+        .marquee {
+            overflow: hidden;
+            white-space: nowrap;
+        }
+
+        .marquee-content {
+            display: inline-block;
+            animation: marquee 20s linear infinite;
+        }
+
+        .dynamic-card {
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            transform-style: preserve-3d;
+            perspective: 1000px;
+        }
+
+        .dynamic-card:hover {
+            transform: translateY(-10px) rotateX(10deg) rotateY(10deg);
+            box-shadow: 20px 20px 60px rgba(0,0,0,0.1);
+        }
+
+        .magnetic-button {
+            position: relative;
+            transition: transform 0.3s ease;
+            overflow: hidden;
+        }
+
+        .magnetic-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, var(--brand-blue), var(--brand-orange));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: -1;
+        }
+
+        .magnetic-button:hover::before {
+            opacity: 1;
+        }
+
+        .hero-text {
+            font-size: clamp(2.5rem, 8vw, 5rem);
+            line-height: 1.1;
+            background: linear-gradient(45deg, var(--brand-blue), var(--brand-orange), var(--brand-green));
+            -webkit-background-clip: text;
+            color: transparent;
+            animation: gradientFlow 8s ease infinite;
+        }
+
+        @keyframes gradientFlow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0); }
+            25% { transform: translate(5%, 5%); }
+            50% { transform: translate(-5%, 10%); }
+            75% { transform: translate(10%, -5%); }
+        }
+
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-100%); }
+        }
+
+        .scroll-section {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 1s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .scroll-section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .nav-blur {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+        }
+    </style>
+</head>
+<body>
+    <!-- Gradient Blobs -->
+    <div class="gradient-blob blob-1"></div>
+    <div class="gradient-blob blob-2"></div>
+    <div class="gradient-blob blob-3"></div>
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 nav-blur">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center">
+                    <img src="/api/placeholder/40/40" alt="Logo" class="h-10">
+                    <span class="ml-3 text-xl font-bold">Atomic Loyalty</span>
+                </div>
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#features" class="text-gray-600 hover:text-gray-900 transition-colors">Features</a>
+                    <a href="#solutions" class="text-gray-600 hover:text-gray-900 transition-colors">Solutions</a>
+                    <a href="#process" class="text-gray-600 hover:text-gray-900 transition-colors">Process</a>
+                    <button class="magnetic-button px-6 py-2 rounded-full bg-white text-gray-900 shadow-lg">
+                        Get Started
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="min-h-screen flex items-center justify-center pt-20 overflow-hidden">
+        <div class="container mx-auto px-6">
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div class="space-y-8">
+                    <h1 class="hero-text font-bold">
+                        Transform Your Customer Experience
+                    </h1>
+                    <p class="text-xl text-gray-600">
+                        Create engaging loyalty programs that drive real results with our powerful platform.
+                    </p>
+                    <div class="flex space-x-4">
+                        <button class="magnetic-button px-8 py-4 rounded-full bg-gray-900 text-white">
+                            Start Free Trial
+                        </button>
+                        <button class="px-8 py-4 rounded-full border-2 border-gray-900 hover:bg-gray-900 hover:text-white transition-colors">
+                            Watch Demo
+                        </button>
+                    </div>
+                </div>
+                <div class="relative">
+                    <div class="glass-card rounded-2xl p-8 transform rotate-3 hover:rotate-0 transition-transform duration-500">
+                        <img src="/api/placeholder/500/300" alt="Dashboard" class="rounded-lg shadow-2xl">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="py-20">
+        <div class="container mx-auto px-6">
+            <h2 class="text-4xl font-bold text-center mb-16">Powerful Features</h2>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="dynamic-card glass-card p-8 rounded-2xl">
+                    <div class="h-12 w-12 rounded-full bg-blue-100 flex items-center justify-center mb-6">
+                        <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">Smart Campaigns</h3>
+                    <p class="text-gray-600">Launch targeted campaigns that drive engagement and increase customer loyalty.</p>
+                </div>
+                <!-- More feature cards -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Clients Section -->
+    <section class="py-20 relative overflow-hidden">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-16">Нам довіряють</h2>
+            
+            <!-- Main Carousel -->
+            <div class="logos-carousel">
+                <div class="logos-slide">
+                    <div class="client-logo">
+                        <img src="/api/placeholder/180/60" alt="Verona" class="grayscale hover:grayscale-0 transition-all duration-300 transform hover:scale-110">
+                    </div>
+                    <div class="client-logo">
+                        <img src="/api/placeholder/180/60" alt="Samsung" class="grayscale hover:grayscale-0 transition-all duration-300 transform hover:scale-110">
+                    </div>
+                    <div class="client-logo">
+                        <img src="/api/placeholder/180/60" alt="iDream" class="grayscale hover:grayscale-0 transition-all duration-300 transform hover:scale-110">
+                    </div>
+                    <div class="client-logo">
+                        <img src="/api/placeholder/180/60" alt="Empik" class="grayscale hover:grayscale-0 transition-all duration-300 transform hover:scale-110">
+                    </div>
+                    <div class="client-logo">
+                        <img src="/api/placeholder/180/60" alt="Kazar" class="grayscale hover:grayscale-0 transition-all duration-300 transform hover:scale-110">
+                    </div>
+                </div>
+                <div class="logos-slide">
+                    <div class="client-logo">
+                        <img src="/api/placeholder/180/60" alt="Verona" class="grayscale hover:grayscale-0 transition-all duration-300 transform hover:scale-110">
+                    </div>
+                    <div class="client-logo">
+                        <img src="/api/placeholder/180/60" alt="Samsung" class="grayscale hover:grayscale-0 transition-all duration-300 transform hover:scale-110">
+                    </div>
+                    <div class="client-logo">
+                        <img src="/api/placeholder/180/60" alt="iDream" class="grayscale hover:grayscale-0 transition-all duration-300 transform hover:scale-110">
+                    </div>
+                    <div class="client-logo">
+                        <img src="/api/placeholder/180/60" alt="Empik" class="grayscale hover:grayscale-0 transition-all duration-300 transform hover:scale-110">
+                    </div>
+                    <div class="client-logo">
+                        <img src="/api/placeholder/180/60" alt="Kazar" class="grayscale hover:grayscale-0 transition-all duration-300 transform hover:scale-110">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Partners Section -->
+            <div class="mt-20 flex justify-center items-center space-x-8">
+                <img src="/api/placeholder/200/80" alt="EU Funds" class="h-16 object-contain">
+                <img src="/api/placeholder/200/80" alt="Poland" class="h-16 object-contain">
+                <img src="/api/placeholder/200/80" alt="European Union" class="h-16 object-contain">
+            </div>
+        </div>
+    </section>
+
+    <!-- Process Section -->
+    <section id="process" class="py-20">
+        <div class="container mx-auto px-6">
+            <h2 class="text-4xl font-bold text-center mb-16">How It Works</h2>
+            <div class="max-w-4xl mx-auto">
+                <div class="grid gap-12">
+                    <div class="scroll-section flex items-start space-x-8">
+                        <div class="flex-shrink-0 w-12 h-12 rounded-full bg-gray-900 text-white flex items-center justify-center font-bold">1</div>
+                        <div>
+                            <h3 class="text-xl font-bold mb-4">Connect Your Platform</h3>
+                            <p class="text-gray-600">Seamlessly integrate with your existing systems using our powerful API.</p>
+                        </div>
+                    </div>
+                    <!-- More process steps -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // GSAP Animations
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Hero Animation
+        gsap.from(".hero-text", {
+            duration: 1,
+            y: 100,
+            opacity: 0,
+            ease: "power4.out"
+        });
+
+        // Scroll Animations
+        gsap.utils.toArray('.scroll-section').forEach(section => {
+            gsap.from(section, {
+                scrollTrigger: {
+                    trigger: section,
+                    start: "top 80%",
+                    end: "top 20%",
+                    toggleActions: "play none none reverse"
+                },
+                y: 60,
+                opacity: 0,
+                duration: 1,
+                ease: "power3.out"
+            });
+        });
+
+        // Magnetic Button Effect
+        document.querySelectorAll('.magnetic-button').forEach(button => {
+            button.addEventListener('mousemove', (e) => {
+                const rect = button.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                
+                const deltaX = (x - centerX) / centerX;
+                const deltaY = (y - centerY) / centerY;
+                
+                button.style.transform = `translate(${deltaX * 10}px, ${deltaY * 10}px)`;
+            });
+            
+            button.addEventListener('mouseleave', () => {
+                button.style.transform = 'translate(0, 0)';
+            });
+        });
+
+        // Logos Animation Enhancement
+        gsap.from(".client-logo", {
+            scrollTrigger: {
+                trigger: ".logos-carousel",
+                start: "top 80%",
+                end: "bottom 20%",
+                toggleActions: "play none none reverse"
+            },
+            y: 50,
+            opacity: 0,
+            duration: 0.8,
+            stagger: 0.1,
+            ease: "power3.out"
+        });
+
+        // Parallax Effect
+        document.addEventListener('mousemove', (e) => {
+            const blobs = document.querySelectorAll('.gradient-blob');
+            const x = e.clientX / window.innerWidth;
+            const y = e.clientY / window.innerHeight;
+            
+            blobs.forEach((blob, index) => {
+                const speed = (index + 1) * 20;
+                blob.style.transform = `translate(${x * speed}px, ${y * speed}px)`;
+            });
+        });
+    </script>
+</body>
+</html>
