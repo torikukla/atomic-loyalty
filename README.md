@@ -1,1 +1,1 @@
-# -atomic-loyalty
+# atomic-loyalty
