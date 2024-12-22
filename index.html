@@ -235,6 +235,110 @@
             background: rgba(255, 255, 255, 0.8);
             backdrop-filter: blur(10px);
         }
+
+        /* Стилі для меню */
+        .menu-link {
+            position: relative;
+            overflow: hidden;
+            font-size: 1.125rem; /* 18px */
+            letter-spacing: -0.01em;
+        }
+
+        .menu-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(to right, var(--brand-blue), var(--brand-orange));
+            transform: scaleX(0);
+            transform-origin: right;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .menu-link:hover::after {
+            transform: scaleX(1);
+            transform-origin: left;
+        }
+
+        /* Активний стан меню */
+        .menu-link.active {
+            color: var(--brand-blue);
+            font-weight: 500;
+            background: linear-gradient(to right, rgba(0, 167, 225, 0.1), rgba(255, 107, 0, 0.05));
+        }
+
+        /* Оновлений hover ефект */
+        .menu-link:hover {
+            background: linear-gradient(to right, rgba(0, 167, 225, 0.05), rgba(255, 107, 0, 0.02));
+        }
+
+        /* Анімація для активного стану */
+        .menu-link {
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        /* Додатковий ефект при наведенні */
+        .menu-link:hover span:first-child {
+            transform: translateY(-1px);
+            transition: transform 0.2s ease;
+        }
+
+        /* Анімація фону при наведенні */
+        .menu-link span:last-child {
+            opacity: 0;
+        }
+
+        .menu-link:hover span:last-child {
+            opacity: 1;
+        }
+
+        /* Оновлені стилі для контейнера */
+        .container {
+            width: 100%;
+            max-width: 1920px;
+            margin: 0 auto;
+            padding-left: 2rem;
+            padding-right: 2rem;
+        }
+
+        @media (max-width: 640px) {
+            .container {
+                padding-left: 1rem;
+                padding-right: 1rem;
+            }
+        }
+
+        @media (min-width: 1921px) {
+            .container {
+                padding-left: 4rem;
+                padding-right: 4rem;
+            }
+        }
+
+        /* Стилі для кнопок CTA */
+        .magnetic-button {
+            font-size: 1.125rem; /* 18px */
+            font-weight: 500;
+            transform: translateY(0);
+            transition: all 0.3s ease;
+        }
+
+        .magnetic-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 167, 225, 0.2);
+        }
+
+        /* Додаткові стилі для респонсивності */
+        @media (max-width: 1024px) {
+            .menu-link {
+                font-size: 1rem;
+                padding: 0.5rem 1rem;
+            }
+        }
     </style>
 </head>
 <body>
@@ -246,17 +350,43 @@
     <!-- Navigation -->
     <nav class="fixed w-full z-50 nav-blur">
         <div class="container mx-auto px-6 py-4">
-            <div class="flex items-center justify-between">
-                <div class="flex items-center">
-                    <img src="/api/placeholder/40/40" alt="Logo" class="h-10">
-                    <span class="ml-3 text-xl font-bold">Atomic Loyalty</span>
+            <div class="flex items-center justify-between gap-20">
+                <!-- Logo -->
+                <div class="flex-shrink-0">
+                    <a href="/" class="block">
+                        <img src="assets/atomic-loyalty-logo.png" alt="Atomic Loyalty" class="h-20 hover:scale-105 transition-transform duration-300">
+                    </a>
                 </div>
-                <div class="hidden md:flex items-center space-x-8">
-                    <a href="#features" class="text-gray-600 hover:text-gray-900 transition-colors">Features</a>
-                    <a href="#solutions" class="text-gray-600 hover:text-gray-900 transition-colors">Solutions</a>
-                    <a href="#process" class="text-gray-600 hover:text-gray-900 transition-colors">Process</a>
-                    <button class="magnetic-button px-6 py-2 rounded-full bg-white text-gray-900 shadow-lg">
-                        Get Started
+                
+                <!-- Center Menu -->
+                <div class="flex-grow hidden md:flex items-center justify-center">
+                    <div class="flex items-center space-x-12">
+                        <a href="#products" class="menu-link relative px-4 py-2 text-lg font-medium text-gray-700 hover:text-gray-900 transition-all duration-300 rounded-lg">
+                            <span class="relative z-10">Продукти та Послуги</span>
+                            <span class="absolute inset-0 bg-gradient-to-r from-blue-50 to-blue-100 rounded-lg transform scale-x-0 transition-transform duration-300 origin-left hover:scale-x-100"></span>
+                        </a>
+                        <a href="#solutions" class="menu-link relative px-4 py-2 text-lg font-medium text-gray-700 hover:text-gray-900 transition-all duration-300 rounded-lg">
+                            <span class="relative z-10">Рішення для Бізнесу</span>
+                            <span class="absolute inset-0 bg-gradient-to-r from-blue-50 to-blue-100 rounded-lg transform scale-x-0 transition-transform duration-300 origin-left hover:scale-x-100"></span>
+                        </a>
+                        <a href="#pricing" class="menu-link relative px-4 py-2 text-lg font-medium text-gray-700 hover:text-gray-900 transition-all duration-300 rounded-lg">
+                            <span class="relative z-10">Ціни та Плани</span>
+                            <span class="absolute inset-0 bg-gradient-to-r from-blue-50 to-blue-100 rounded-lg transform scale-x-0 transition-transform duration-300 origin-left hover:scale-x-100"></span>
+                        </a>
+                        <a href="#about" class="menu-link relative px-4 py-2 text-lg font-medium text-gray-700 hover:text-gray-900 transition-all duration-300 rounded-lg">
+                            <span class="relative z-10">Про Компанію</span>
+                            <span class="absolute inset-0 bg-gradient-to-r from-blue-50 to-blue-100 rounded-lg transform scale-x-0 transition-transform duration-300 origin-left hover:scale-x-100"></span>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- CTA Buttons -->
+                <div class="flex-shrink-0 hidden md:flex items-center space-x-4">
+                    <button class="magnetic-button px-6 py-2 rounded-full border-2 border-blue-600 text-blue-600 hover:bg-blue-50 hover:shadow-lg transition-all duration-300">
+                        Спробуй сам
+                    </button>
+                    <button class="magnetic-button px-6 py-2 rounded-full bg-gradient-to-r from-blue-600 to-blue-700 text-white hover:shadow-lg transition-all duration-300">
+                        Замовити демо
                     </button>
                 </div>
             </div>
@@ -455,6 +585,29 @@
             blobs.forEach((blob, index) => {
                 const speed = (index + 1) * 20;
                 blob.style.transform = `translate(${x * speed}px, ${y * speed}px)`;
+            });
+        });
+
+        const navLinks = document.querySelectorAll('.nav-link');
+        const sections = document.querySelectorAll('section');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                
+                if (pageYOffset >= (sectionTop - sectionHeight / 3)) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href').substring(1) === current) {
+                    link.classList.add('active');
+                }
             });
         });
     </script>
